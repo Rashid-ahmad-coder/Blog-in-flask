@@ -1,0 +1,33 @@
+
+
+{
+
+
+
+    "params":
+    {
+        "local_server": "True",
+        "local_uri": "mysql://root:@localhost/thecodingmine",
+        "prod_uri": "mysql://root:@localhost/thecodingmine",
+        "fb_url": "https://facebook.com/thecodingmine",
+        "tw_url": "https://twitter.com/thecodingmine",
+        "gh_url": "https://github.com/thecodingmine",
+        "blog_name": "A Simple Blog",
+        "tag_line": "A Blog is Created by Rashid Ahmad",
+        "gmail_user": "kre183642@gmail.com",
+        "gmail_password": "",
+        "no_of_post": 3,
+        "login_image": "post-bg.jpg",
+        "admin_user": "rashid",
+        "admin_password": "rashid",
+        "upload_location": "C:\\Users\\Rashidahmad\\PycharmProjects\\flaskprojects\\static"
+
+
+
+
+
+
+
+    }
+
+}
