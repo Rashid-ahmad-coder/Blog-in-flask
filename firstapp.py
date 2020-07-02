@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail                     #for sending mails
+from flask_mail import Mail                               #for sending mails
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import json
@@ -10,23 +10,19 @@ import math
 with open("config.json","r") as c:
     params=json.load(c)["params"]
 
-
-
 local_server=True
 app = Flask(__name__)
 app.secret_key='super-secret-key'
 app.config['UPLOAD_FOLDER']=params['upload_location']    #for uplaoding files
 
-
 app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT='465',
-    MAIL_USE_SSL=True,                              # for sending mail
+    MAIL_USE_SSL=True,                                    # for sending mail
     MAIL_USERNAME=params['gmail_user'],
     MAIL_PASSWORD=params['gmail_password']
 )
 mail=Mail(app)
-
 
 if(local_server):
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
@@ -34,9 +30,6 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 
 db = SQLAlchemy(app)
-
-
-
 
 class Contacts(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
@@ -46,6 +39,7 @@ class Contacts(db.Model):
     email = db.Column(db.String(20), nullable=False)
     date = db.Column(db.String(12), nullable=True)
 
+
 class Posts(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
@@ -54,11 +48,6 @@ class Posts(db.Model):
     img_file = db.Column(db.String(12), nullable=True)
     tagline = db.Column(db.String(1200), nullable=False)
     date = db.Column(db.String(12), nullable=True)
-
-
-
-
-
 
 
 @app.route('/')
@@ -82,34 +71,19 @@ def home():
         next="/?page=" + str(page + 1)
 
 
-
-
-
     return render_template('index.html', params=params, posts=posts,next=next, prev=prev)
-
-
 
 
 @app.route('/about')
 def about():
-
-
-
-
     return render_template('about.html',params=params)
 
 
-
-
-
-@app.route('/dashboard', methods=['GET', 'POST'])               #This code is for admin login panel
+@app.route('/dashboard', methods=['GET', 'POST'])                         #This code is for admin login panel
 def dashboard():
     if ('user' in session and session['user']==params['admin_user']):     #If user in admin panel
         posts = Posts.query.all()
         return render_template('dashboard.html', params=params, posts=posts)
-
-
-
     if request.method=='POST':
         username=request.form.get('uname')
         userpass=request.form.get('pass')
@@ -152,11 +126,7 @@ def edit(sno):
         return render_template('edit.html', params=params, post=post,sno=sno)
 
 
-
-
-
 #file uploader:
-
 @app.route('/uploader', methods=['GET', 'POST'])
 def uplaoder():
     if ('user' in session and session['user'] == params['admin_user']):
@@ -167,7 +137,6 @@ def uplaoder():
 
 
 #logout function::
-
 @app.route('/logout')
 def logout():
     session.pop('user')
@@ -184,17 +153,10 @@ def delete(sno):
     return redirect('/dashboard')
 
 
-
-
-
-
-
-
 @app.route('/contact', methods=['GET','POST'])
 def contact():
     if (request.method=='POST'):
-
-        """Add entry to the database"""
+        #Add entry to the database
         name=request.form.get('name')
         phone_number=request.form.get('phone_number')
         message=request.form.get('message')
@@ -203,12 +165,8 @@ def contact():
         entry=Contacts(name=name, phone_number=phone_number, date=datetime.now(), msg=message, email=email)
         db.session.add(entry)
         db.session.commit()
-        #mail.send_message('New message from Blog' + name,  sender=email, recipients=[params['gmail_user']], body=message + "\n" + phone_number)
-
+        mail.send_message('New message from Blog' + name,  sender=email, recipients=[params['gmail_user']], body=message + "\n" + phone_number)
     return render_template('contact.html',params=params)
-
-
-
 
 
 @app.route('/post')
@@ -219,13 +177,6 @@ def post():
 @app.route('/post/<string:post_slug>',methods=['GET'])
 def post_slug(post_slug):
     post=Posts.query.filter_by(slug=post_slug).first()
-
-
-
     return render_template('post.html',params=params, post=post)
-
-
-
-
 
 app.run(debug=True)

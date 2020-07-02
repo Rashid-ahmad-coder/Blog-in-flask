@@ -1,8 +1,5 @@
-
 {% extends "layout.html" %}
 {% block body %}
-
-
   <!-- Page Header -->
   {% set fname='img/' + post.img_file %}
   <header class="masthead" style="background-image: url('{{url_for('static', filename=fname) }}')">
@@ -15,29 +12,26 @@
             <h2 class="subheading">{{ post.tagline }}</h2>
             <span class="meta">Posted by
               <a href="#">Rashid Ahmad</a>
-              on {{post.date}}</span>
+            on {{post.date}}</span>
           </div>
         </div>
       </div>
     </div>
   </header>
-
   <!-- Post Content -->
   <article>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-
+          
 
           {{post.content}}
           
-            
+          
         </div>
       </div>
     </div>
   </article>
-
   <hr>
-
   
 {% endblock %}

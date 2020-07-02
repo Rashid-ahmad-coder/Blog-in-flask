@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 {% block body %}
   <!-- Page Header -->
@@ -15,20 +14,16 @@
       </div>
     </div>
   </header>
-
   <!-- Main Content -->
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-
         <h1>Basic Actions</h1>
-
         <a href="/dashboard"><button class="btn btn-primary" >dashboard home</button></a>
         <a href="/logout"><button class="btn btn-primary" >logout</button></a>
-          <hr>
-         <h1>Edit/Add Posts here</h1>
-
-          <form name="sentMessage" id="contactForm" novalidate action="/edit/{{post.sno}}" method="post">
+        <hr>
+        <h1>Edit/Add Posts here</h1>
+        <form name="sentMessage" id="contactForm" novalidate action="/edit/{{post.sno}}" method="post">
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Title</label>
@@ -68,14 +63,11 @@
           <div id="success"></div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
         </form>
-
-    
-
         
-      
+        
+        
         
       </div>
     </div>
   </div>
-
 {% endblock %}

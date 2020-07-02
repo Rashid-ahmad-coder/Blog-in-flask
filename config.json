@@ -1,8 +1,4 @@
-
-
 {
-
-
 
     "params":
     {
@@ -21,11 +17,6 @@
         "admin_user": "rashid",
         "admin_password": "rashid",
         "upload_location": "C:\\Users\\Rashidahmad\\PycharmProjects\\flaskprojects\\static"
-
-
-
-
-
 
 
     }
